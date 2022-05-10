@@ -1,0 +1,21 @@
+:root {
+	--container: 1248px;
+	--font-main: 'Miriadpro';
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+	--font-title: 4.8rem;
+	--font-label: 3.4rem;
+	--font-text: 1.6rem;
+
+
+
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-txt: #eceff4;
+		--color-bg-1: #2e3440;
+		--color-bg-2: #3b4252;
+		--color-line: #3b4252;
+	}
+}
