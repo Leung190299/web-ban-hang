@@ -12,9 +12,8 @@ const modelProduct = new mongoose.Schema( {
 	detal: {
 		type: String,
 	},
-	Image: {
-		type: String,
-	},
+	Image: [ String ],
+
 	priceNew: {
 		type: Number,
 	},
@@ -23,7 +22,8 @@ const modelProduct = new mongoose.Schema( {
 		default:true,
 	},
 	categrory: {
-		type:mongoose.SchemaTypes.ObjectId
+		type: mongoose.SchemaTypes.ObjectId,
+
 	}
 
 } );
