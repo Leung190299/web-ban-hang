@@ -4,7 +4,7 @@ const categroryModel = new mongoose.Schema( {
 	name: String,
 	content: String,
 	image: String,
-	parent:String,
+	parent: mongoose.SchemaTypes.ObjectId,
 } );
 
 module.exports = mongoose.model( 'Categtory', categroryModel, 'Categrory' );
