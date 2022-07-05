@@ -6,6 +6,7 @@ const order = require( './order' );
 const orderDetail = require( './orderDetail' );
 const post = require( './post' );
 const product = require( './products' );
+const media = require( './media' );
 
 module.exports = {
 	Users,
@@ -15,5 +16,6 @@ module.exports = {
 	order,
 	orderDetail,
 	post,
-	product
+	product,
+	media
 };

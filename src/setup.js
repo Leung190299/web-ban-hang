@@ -7,6 +7,7 @@ const routeApp = require( './resources/routes/app' );
 const routeApi = require( './resources/routes/api' );
 const db = require( './config/db' );
 
+global.appRoot = path.resolve(__dirname);
 //dotenv
 dotenv.config({path:path.join( __dirname, '.env' )})
 
@@ -25,8 +26,8 @@ const App = {
 		app.set( 'views', path.join( __dirname, 'resources', 'views' ) );
 
 		// set body parser
-		app.use(bodyParser.urlencoded({ extended: false }))
-		app.use(bodyParser.json())
+		app.use(bodyParser.urlencoded({ extended: false ,limit:'50mb'}))
+		app.use(bodyParser.json({limit:'50mb'}))
 
 		// set router
 		routeApp( app );

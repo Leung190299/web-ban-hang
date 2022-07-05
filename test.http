@@ -22,15 +22,8 @@ get http://localhost:3000/api/user
 Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjdmNTUyZjMzNDAzMTdmMjhhNzVkMTIiLCJpYXQiOjE2NTI1MTIwNDcsImV4cCI6MTY1MjUxNTY0N30.z86W209beIn-t38ALawi3XHbjZlCdhO79avTlQZJ_Ik
 
 ###
-post http://localhost:3000/api/product/update
-Content-Type: application/json
+post http://localhost:3000/api/media/upload
+Content-Type: multipart/form-data;
+Content-Disposition: form-data; name="text"; filename=".env"
 
-{	"id":"62963a23eddd29276d7214cc",
-	"name": "rau sach asdasd dasdasd",
-	"price": 1500,
-	"detal":"sdasdasdasdas",
-	"Image": "#",
-	"priceNew": 5000,
-	"status": true,
-	"categrory": "627f28eb617ff8fb1a274bf8"
-}
+
