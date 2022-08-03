@@ -3,47 +3,43 @@ const { categrory } = require( '../models' );
 class categoryController{
 	async create( req, res ) {
 		try {
-			const cate = new categrory( {
-				name: req.body.name,
-				content: req.body.content,
-				image: req.body.image,
-				parent:req.body.parent,
-			} );
-			await cate.save();
-			res.status( 200 ).send( {
-				status: 'seccess',
-				data: cate._id
-			} );
+			const newCategrory = new categrory( req.body);
+			const SevedCategroty = await newCategrory.save();
+			res.status( 200 ).json( SevedCategroty._id );
 		} catch (error) {
-			res.status( 300 ).send( {
-				status: 'fall',
-				error
-			} );
+			res.status( 500 ).json( error);
 		}
 	}
 	async update( req, res ) {
 		try {
-			const cate = await categrory.findOneAndUpdate( {
-				_id: req.body.id
-			}, {
-				name: req.body.name,
-				price: req.body.price,
-				detal: req.body.detal,
-				Image: req.body.Image,
-				priceNew: req.body.priceNew,
-				status: true,
-				categrory: req.body.categrory
-			} );
-			await prod.save();
-			res.status( 200 ).send( {
-				status: 'seccess',
-				data: cate
-			} );
+			const UpadeCategrory = await categrory.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
+			res.status( 200 ).json(UpadeCategrory );
 		} catch ( error ) {
-			res.status( 300 ).send( {
-				status: 'fall',
-				error
-			} );
+			res.status( 500 ).send( error );
+		}
+	}
+	async delete( req, res ) {
+		try {
+			await categrory.findByIdAndDelete( req.params.id );
+			res.status( 200 ).json( req.params.id );
+		} catch (error) {
+			res.status( 500 ).send( error );
+		}
+	}
+	async getOne( req, res ) {
+		try {
+			const Categrory = await categrory.findById( req.params.id );
+			res.status( 200 ).json( Categrory );
+		} catch (error) {
+			res.status( 500 ).send( error );
+		}
+	}
+	async getAll( req, res ) {
+		try {
+			const Categrorys = await categrory.find();
+			res.status( 200 ).json( Categrorys );
+		} catch (error) {
+			res.status( 500 ).send( error );
 		}
 	}
 }

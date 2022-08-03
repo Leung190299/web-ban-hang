@@ -24,10 +24,15 @@ const App = {
 
 		//set directory view
 		app.set( 'views', path.join( __dirname, 'resources', 'views' ) );
-
 		// set body parser
 		app.use(bodyParser.urlencoded({ extended: false ,limit:'50mb'}))
 		app.use(bodyParser.json({limit:'50mb'}))
+		app.use( ( req, res, next ) => {
+			res.header( 'Access-Control-Allow-Origin', 'http://localhost:3000' );
+			res.header( 'Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS' );
+			res.header( 'Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+			next()
+		} );
 
 		// set router
 		routeApp( app );
@@ -37,7 +42,7 @@ const App = {
 	},
 	listen: () => {
 		app.listen( process.env.PORT, () => {
-			console.log('listening port:3000')
+			console.log('listening port',process.env.PORT)
 		} )
 	}
 };
