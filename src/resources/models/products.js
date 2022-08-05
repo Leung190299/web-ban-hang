@@ -12,7 +12,8 @@ const modelProduct = new mongoose.Schema( {
 	detal: {
 		type: String,
 	},
-	Image: [ String ],
+	imageList: [ mongoose.SchemaTypes.ObjectId ],
+
 
 	priceNew: {
 		type: Number,

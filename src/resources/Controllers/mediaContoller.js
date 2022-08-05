@@ -20,13 +20,11 @@ class mediaController {
 			const savedMenu = await newMedia.save();
 			res.status( 200 ).json( newMedia );
 
-
-
 		} catch ( error ) {
 			res.status( 500 ).json( error );
 		}
 	}
-	async getAllFile( req, res ) {
+	async getFiles( req, res ) {
 		try {
 			let perPage = 12; // số lượng sản phẩm xuất hiện trên 1 page
 			let page = req.body.page || 1;
@@ -60,12 +58,25 @@ class mediaController {
 	}
 	async deleteFile( req, res ) {
 		try {
-			console.log(req.body.id);
-			await media.findByIdAndDelete( req.params.id );
-			res.status( 200 ).json( {row:1});
+			const mediaDelete = await media.findByIdAndDelete( req.body.id );
+			if ( mediaDelete ) {
+				res.status( 200 ).json( mediaDelete );
+				fs.unlinkSync( mediaDelete.path );
+			} else {
+
+				res.status( 200 ).json( 'khong tim thay file ' );
+			}
 		} catch ( error ) {
 			res.status( 500 ).json( error );
 
+		}
+	}
+	async getAllFile( req, res ) {
+		try {
+			const files = await media.find(); // find tất cả các data
+			res.status( 200 ).json( files );
+		} catch ( error ) {
+			res.status( 500 ).json( error );
 		}
 	}
 

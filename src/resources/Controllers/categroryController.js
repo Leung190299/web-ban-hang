@@ -12,7 +12,7 @@ class categoryController{
 	}
 	async update( req, res ) {
 		try {
-			const UpadeCategrory = await categrory.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
+			const UpadeCategrory = await categrory.findByIdAndUpdate(req.body.id,{$set:req.body},{new:true})
 			res.status( 200 ).json(UpadeCategrory );
 		} catch ( error ) {
 			res.status( 500 ).send( error );
@@ -20,15 +20,15 @@ class categoryController{
 	}
 	async delete( req, res ) {
 		try {
-			await categrory.findByIdAndDelete( req.params.id );
-			res.status( 200 ).json( req.params.id );
+			await categrory.findByIdAndDelete( req.body.id );
+			res.status( 200 ).json( req.body.id );
 		} catch (error) {
 			res.status( 500 ).send( error );
 		}
 	}
 	async getOne( req, res ) {
 		try {
-			const Categrory = await categrory.findById( req.params.id );
+			const Categrory = await categrory.findById( req.body.id );
 			res.status( 200 ).json( Categrory );
 		} catch (error) {
 			res.status( 500 ).send( error );
