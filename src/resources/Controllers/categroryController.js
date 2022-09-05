@@ -1,28 +1,33 @@
 const { categrory } = require( '../models' );
 
-class categoryController{
+class categoryController {
 	async create( req, res ) {
 		try {
-			const newCategrory = new categrory( req.body);
+
+			const newCategrory = new categrory( req.body );
 			const SevedCategroty = await newCategrory.save();
-			res.status( 200 ).json( SevedCategroty._id );
-		} catch (error) {
-			res.status( 500 ).json( error);
+			res.status( 200 ).json( SevedCategroty );
+		} catch ( error ) {
+			res.status( 500 ).json( error );
 		}
 	}
 	async update( req, res ) {
 		try {
-			const UpadeCategrory = await categrory.findByIdAndUpdate(req.body.id,{$set:req.body},{new:true})
-			res.status( 200 ).json(UpadeCategrory );
+			const data = req.body;
+			if ( data.parent === '' ) data[ 'parent' ] = null;
+			if ( data.image === 'undefined' ) data[ 'image' ] = null;
+			const UpadeCategrory = await categrory.findByIdAndUpdate( data.id, { $set: data }, { new: true } );
+			res.status( 200 ).json( UpadeCategrory );
 		} catch ( error ) {
 			res.status( 500 ).send( error );
 		}
 	}
 	async delete( req, res ) {
 		try {
-			await categrory.findByIdAndDelete( req.body.id );
-			res.status( 200 ).json( req.body.id );
-		} catch (error) {
+		const categoryDelete=	await categrory.findByIdAndDelete( req.body.id );
+			res.status( 200 ).json( categoryDelete);
+
+		} catch ( error ) {
 			res.status( 500 ).send( error );
 		}
 	}
@@ -30,16 +35,35 @@ class categoryController{
 		try {
 			const Categrory = await categrory.findById( req.body.id );
 			res.status( 200 ).json( Categrory );
-		} catch (error) {
+		} catch ( error ) {
 			res.status( 500 ).send( error );
 		}
 	}
 	async getAll( req, res ) {
 		try {
-			const Categrorys = await categrory.find();
-			res.status( 200 ).json( Categrorys );
-		} catch (error) {
+			let perPage = req.body.perPage || 12;
+			let page = req.body.page || 1;
+			await categrory
+				.find()
+				.populate( 'parent', 'name' )
+				.populate( 'image' )
+				.skip( ( perPage * page ) - perPage )
+				.limit( perPage )
+				.sort( { name: 'desc' } )
+				.exec( ( err, categorys ) => {
+					categrory.countDocuments( ( err, count ) => {
+						if ( err ) res.status( 500 ).json( err );
+						res.status( 200 ).json( {
+							page,
+							pages: Math.ceil( count / perPage ),
+							categorys
+						} );
+					} );
+				} );
+
+		} catch ( error ) {
 			res.status( 500 ).send( error );
 		}
 	}
 }
+module.exports = new categoryController;

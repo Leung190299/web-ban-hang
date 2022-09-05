@@ -64,7 +64,7 @@ class mediaController {
 				fs.unlinkSync( mediaDelete.path );
 			} else {
 
-				res.status( 200 ).json( 'khong tim thay file ' );
+				res.status( 500 ).json( 'khong tim thay file ' );
 			}
 		} catch ( error ) {
 			res.status( 500 ).json( error );

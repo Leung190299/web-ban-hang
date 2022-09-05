@@ -7,24 +7,42 @@ const modelProduct = new mongoose.Schema( {
 	},
 	price: {
 		type: Number,
-		required: true
+		required: true,
+		default:0
 	},
-	detal: {
-		type: String,
-	},
-	imageList: [ mongoose.SchemaTypes.ObjectId ],
-
-
 	priceNew: {
 		type: Number,
+		default:0
+	},
+	total: {
+		type: Number,
+		default:0
+	},
+	content: {
+		type: String,
+	},
+	excrept: {
+		type: String,
+	},
+	thumbnail: {
+		type: mongoose.SchemaTypes.ObjectId,
+		ref:'Media'
+	},
+	imageList: {
+		type: [ mongoose.SchemaTypes.ObjectId ],
+		ref: 'Media'
 	},
 	status: {
 		type: Boolean,
-		default:true,
+		default: true,
 	},
 	categrory: {
-		type: mongoose.SchemaTypes.ObjectId,
-
+		type: [ mongoose.SchemaTypes.ObjectId ],
+		ref: 'Category'
+	},
+	date: {
+		type: Date,
+		default: Date.now
 	}
 
 } );
